@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vada Pav Quiz</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+    url("burger.jpg") center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  color:#fff;
+}
+
+/* MAIN CARD */
+.quiz-box{
+  width:100%;
+  max-width:420px;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(6px);
+  border-radius:18px;
+  padding:25px;
+  animation: slideUp 1s ease forwards;
+}
+
+/* QUESTION */
+.question{
+  font-size:1.2rem;
+  margin-bottom:15px;
+}
+
+/* OPTIONS */
+.option{
+  background:rgba(255,255,255,0.12);
+  padding:14px;
+  border-radius:14px;
+  margin-bottom:12px;
+  cursor:pointer;
+  transition:all 0.35s ease;
+}
+
+.option:hover{
+  background:rgba(255,204,0,0.85);
+  color:#000;
+  transform:scale(1.03);
+}
+
+/* NEXT BUTTON */
+.next-btn{
+  margin-top:20px;
+  width:100%;
+  padding:14px;
+  font-size:1.05rem;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(135deg,#ffcc00,#ff8c00);
+  color:#000;
+  font-weight:600;
+  cursor:pointer;
+  display:none;
+}
+
+/* ANIMATION */
+@keyframes slideUp{
+  from{
+    opacity:0;
+    transform:translateY(40px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="quiz-box" id="quizBox">
+  <div class="question" id="question"></div>
+  <div id="options"></div>
+  <button class="next-btn" id="nextBtn" onclick="nextQuestion()">Next</button>
+</div>
+
+<script>
+const quizData = [
+  {
+    q: "🌶️ Teekha pasand hai?",
+    options: ["😈 Full teekha", "🙂 Medium", "😐 Bilkul nahi"]
+  },
+  {
+    q: "🧈 Butter level?",
+    options: ["Extra butter", "Normal", "No butter"]
+  },
+  {
+    q: "⏰ Kab khate ho Vada Pav?",
+    options: ["🌞 Morning", "🌙 Late night", "😋 Kab bhi"]
+  },
+  {
+    q: "🥯 Pav kaise pasand hai?",
+    options: ["Soft", "Thoda crispy", "Extra toasted"]
+  }
+];
+
+let current = 0;
+let answers = [];
+
+const questionEl = document.getElementById("question");
+const optionsEl = document.getElementById("options");
+const nextBtn = document.getElementById("nextBtn");
+
+function loadQuestion(){
+  nextBtn.style.display="none";
+  questionEl.innerText = quizData[current].q;
+  optionsEl.innerHTML = "";
+
+  quizData[current].options.forEach(opt=>{
+    const div = document.createElement("div");
+    div.className="option";
+    div.innerText = opt;
+    div.onclick=()=>{
+      answers[current]=opt;
+      nextBtn.style.display="block";
+    };
+    optionsEl.appendChild(div);
+  });
+}
+
+function nextQuestion(){
+  current++;
+  if(current < quizData.length){
+    loadQuestion();
+  }else{
+    localStorage.setItem("vadaAnswers", JSON.stringify(answers));
+    window.location.href = "Burger3.html";
+  }
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>

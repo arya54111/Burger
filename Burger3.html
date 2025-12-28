@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unlock Your Result</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+    url("burger.jpg") center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  color:#fff;
+}
+
+/* CARD */
+.unlock-box{
+  width:100%;
+  max-width:420px;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(10px);
+  border-radius:20px;
+  padding:30px 25px;
+  animation: fadeUp 1.2s ease forwards;
+  box-shadow:0 20px 40px rgba(0,0,0,0.6);
+}
+
+.unlock-box h2{
+  font-size:1.7rem;
+  margin-bottom:10px;
+}
+
+.unlock-box p{
+  font-size:1rem;
+  opacity:0.9;
+  margin-bottom:25px;
+}
+
+/* INPUTS */
+input{
+  width:100%;
+  padding:14px;
+  margin-bottom:15px;
+  border-radius:14px;
+  border:none;
+  outline:none;
+  font-size:0.95rem;
+}
+
+/* BUTTON */
+.unlock-btn{
+  width:100%;
+  padding:15px;
+  border:none;
+  border-radius:40px;
+  background:linear-gradient(135deg,#ffcc00,#ff8c00);
+  font-size:1.05rem;
+  font-weight:600;
+  color:#000;
+  cursor:pointer;
+  transition:all 0.4s ease;
+}
+
+.unlock-btn:hover{
+  transform:scale(1.05);
+}
+
+/* NEXT */
+.next-btn{
+  display:none;
+  margin-top:18px;
+  text-align:center;
+  font-size:0.95rem;
+  color:#ffcc00;
+  cursor:pointer;
+  text-decoration:underline;
+}
+
+/* ANIMATION */
+@keyframes fadeUp{
+  from{
+    opacity:0;
+    transform:translateY(40px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="unlock-box">
+  <h2>🔥 Result Ready Hai!</h2>
+  <p>Bas apna naam bharo aur dekho tum kaun se Vada Pav ho 😍</p>
+
+  <form onsubmit="unlockResult(event)">
+    <input type="text" id="name" placeholder="Your Name" required>
+    <input type="email" id="email" placeholder="Email Address" required>
+    <input type="text" id="area" placeholder="Area (optional)">
+    <button class="unlock-btn" type="submit">Unlock My Result 🔓</button>
+  </form>
+
+  <div class="next-btn" id="nextBtn" onclick="goNext()">
+    👉 View My Result
+  </div>
+</div>
+
+<script>
+function unlockResult(e){
+  e.preventDefault();
+
+  const userData = {
+    name: document.getElementById("name").value,
+    email: document.getElementById("email").value,
+    area: document.getElementById("area").value
+  };
+
+  localStorage.setItem("vadaUser", JSON.stringify(userData));
+
+  document.querySelector(".unlock-btn").innerText = "Unlocked ✅";
+  document.getElementById("nextBtn").style.display = "block";
+}
+
+function goNext(){
+  window.location.href = "Burger4.html";
+}
+</script>
+
+</body>
+</html>
