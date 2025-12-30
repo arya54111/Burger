@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Your Vada Pav Result</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins', sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:
+    linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+    url("burger.jpg") center/cover no-repeat;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  padding:20px;
+  color:#fff;
+}
+
+/* CARD */
+.result-box{
+  max-width:420px;
+  width:100%;
+  background:rgba(0,0,0,0.55);
+  backdrop-filter:blur(10px);
+  border-radius:22px;
+  padding:30px 25px;
+  text-align:center;
+  animation: reveal 1.4s ease forwards;
+  box-shadow:0 20px 40px rgba(0,0,0,0.6);
+}
+
+.result-box h2{
+  font-size:1.8rem;
+  margin-bottom:10px;
+}
+
+.result-box p{
+  font-size:1rem;
+  opacity:0.9;
+  margin-bottom:18px;
+}
+
+.result-type{
+  font-size:1.4rem;
+  font-weight:600;
+  margin:15px 0;
+  color:#ffcc00;
+}
+
+.description{
+  font-size:0.95rem;
+  line-height:1.5;
+}
+
+/* ANIMATION */
+@keyframes reveal{
+  from{
+    opacity:0;
+    transform:scale(0.85);
+  }
+  to{
+    opacity:1;
+    transform:scale(1);
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="result-box">
+  <h2 id="userName">🎉 Hey!</h2>
+  <p>Tumhara Vada Pav personality result aa gaya 😋</p>
+
+  <div class="result-type" id="resultType"></div>
+  <div class="description" id="resultDesc"></div>
+</div>
+
+<script>
+// Fetch stored data
+const answers = JSON.parse(localStorage.getItem("vadaAnswers")) || [];
+const user = JSON.parse(localStorage.getItem("vadaUser")) || {name:"Friend"};
+
+// Show name
+document.getElementById("userName").innerText = `🎉 Hey ${user.name}!`;
+
+// SCORING LOGIC
+let score = 0;
+
+// Q1 – Teekha
+if(answers[0]?.includes("Full")) score += 3;
+else if(answers[0]?.includes("Medium")) score += 2;
+
+// Q2 – Butter
+if(answers[1]?.includes("Extra")) score += 3;
+else if(answers[1]?.includes("Normal")) score += 2;
+
+// Q3 – Timing
+if(answers[2]?.includes("Kab bhi")) score += 2;
+
+// Q4 – Pav
+if(answers[3]?.includes("Extra")) score += 3;
+else if(answers[3]?.includes("Soft")) score += 2;
+
+// RESULT DECISION
+let type = "";
+let desc = "";
+
+if(score >= 10){
+  type = "🔥 Teekha Vada Pav Lover";
+  desc = "Tum bold ho, energetic ho aur life me spice pasand karte ho. Simple cheezein tumhare liye boring hain 😎";
+}
+else if(score >= 7){
+  type = "🧈 Butter Vada Pav Fan";
+  desc = "Tum balanced ho, comfort aur taste dono ko value dete ho. Smooth life, smooth vada pav 😉";
+}
+else{
+  type = "🙂 Classic Vada Pav Lover";
+  desc = "Tum simplicity ke king ho. No drama, bas solid taste aur chill vibes ✨";
+}
+
+// Inject result
+document.getElementById("resultType").innerText = type;
+document.getElementById("resultDesc").innerText = desc;
+</script>
+
+</body>
+</html>
